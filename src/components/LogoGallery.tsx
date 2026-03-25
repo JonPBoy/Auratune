@@ -181,6 +181,145 @@ const Logo20 = () => (
   </svg>
 );
 
+const Logo21 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M50 10L20 80h60L50 10z" className="text-white/20" fill="currentColor" />
+    <path d="M50 10L20 80M50 10L80 80M20 80h60M50 10v70M20 80L80 35M80 80L20 35M35 45h30" className="text-purple-400" />
+    <circle cx="50" cy="45" r="5" className="text-white" fill="currentColor" />
+  </svg>
+);
+
+const Logo22 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 80c10-60 50-60 60 0" className="text-blue-400" />
+    <path d="M25 70c10-40 40-40 50 0" className="text-purple-400" />
+    <path d="M30 60c10-20 30-20 40 0" className="text-fuchsia-400" />
+    <path d="M50 15v65" className="text-white" strokeDasharray="4 4" />
+    <circle cx="50" cy="15" r="4" className="text-white" fill="currentColor" />
+  </svg>
+);
+
+const Logo23 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M50 10L30 30v40l20 20 20-20V30L50 10z" className="text-cyan-400/20" fill="currentColor" />
+    <path d="M50 10L30 30M50 10L70 30M30 30v40M70 30v40M30 70l20 20M70 70l20-20" className="text-cyan-400" />
+    <path d="M40 45h20M35 55h30M45 35h10" className="text-white" />
+  </svg>
+);
+
+const Logo24 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="50" cy="50" r="10" className="text-white" fill="currentColor" />
+    <circle cx="50" cy="50" r="20" className="text-purple-500/40" />
+    <circle cx="50" cy="50" r="30" className="text-blue-500/30" />
+    <circle cx="50" cy="50" r="40" className="text-fuchsia-500/20" />
+    <path d="M35 80L50 20l15 60" className="text-white" strokeWidth="6" />
+  </svg>
+);
+
+const Logo25 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M35 85c0-20 30-40 30-60M65 85c0-20-30-40-30-60" className="text-emerald-400" />
+    <path d="M35 70h30M35 50h30M35 30h30" className="text-white/30" strokeWidth="2" />
+    <circle cx="50" cy="15" r="6" className="text-yellow-400" fill="currentColor" />
+  </svg>
+);
+
+const Logo26 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M50 15L20 85h60L50 15z" className="text-white" />
+    <path d="M50 35L35 55l15 20 15-20-15-20z" className="text-yellow-400" fill="currentColor" />
+    <path d="M35 55h30" className="text-black/50" strokeWidth="2" />
+  </svg>
+);
+
+const Logo27 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M50 5L10 25v40l40 30 40-30V25L50 5z" className="text-blue-500/10" fill="currentColor" />
+    <path d="M50 5L10 25v40l40 30 40-30V25L50 5z" className="text-blue-400" />
+    <path d="M35 70L50 25l15 45M40 55h20" className="text-white" strokeWidth="5" />
+  </svg>
+);
+
+const Logo28 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="25" y="20" width="50" height="70" rx="5" className="text-purple-900/40" fill="currentColor" />
+    <path d="M35 85L50 25l15 60" className="text-white" />
+    <path d="M25 20h50M25 90h50" className="text-purple-400" />
+    <circle cx="50" cy="25" r="10" className="text-yellow-400/50" fill="currentColor" />
+  </svg>
+);
+
+const Logo29 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="50" cy="50" r="15" className="text-emerald-400/40" fill="currentColor" />
+    <circle cx="50" cy="35" r="15" className="text-emerald-400/40" />
+    <circle cx="50" cy="65" r="15" className="text-emerald-400/40" />
+    <circle cx="37" cy="42" r="15" className="text-emerald-400/40" />
+    <circle cx="63" cy="42" r="15" className="text-emerald-400/40" />
+    <circle cx="37" cy="58" r="15" className="text-emerald-400/40" />
+    <circle cx="63" cy="58" r="15" className="text-emerald-400/40" />
+    <path d="M35 80L50 20l15 60" className="text-white" strokeWidth="6" />
+  </svg>
+);
+
+const Logo30 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M30 20l20 20 20-20" className="text-slate-400" />
+    <path d="M30 80l20-20 20 20" className="text-slate-400" />
+    <path d="M50 10v80" className="text-blue-400" />
+    <path d="M35 50h30" className="text-white" />
+    <path d="M40 40l10 10 10-10" className="text-white" />
+  </svg>
+);
+
+const Logo31 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M50 85c-20-10-30-30-30-50 0-10 10-20 30-30 20 10 30 20 30 30 0 20-10 40-30 50z" className="text-orange-500/20" fill="currentColor" />
+    <path d="M40 80L50 20l10 60" className="text-orange-400" />
+    <path d="M45 50c5-10 15-10 20 0" className="text-yellow-400" />
+    <path d="M35 50c-5-10-15-10-20 0" className="text-yellow-400" />
+  </svg>
+);
+
+const Logo32 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <ellipse cx="50" cy="50" rx="45" ry="10" className="text-blue-400" transform="rotate(45 50 50)" />
+    <ellipse cx="50" cy="50" rx="45" ry="10" className="text-purple-400" transform="rotate(-45 50 50)" />
+    <ellipse cx="50" cy="50" rx="45" ry="10" className="text-fuchsia-400" transform="rotate(90 50 50)" />
+    <path d="M40 80L50 20l10 60" className="text-white" strokeWidth="6" />
+    <circle cx="50" cy="50" r="4" className="text-white" fill="currentColor" />
+  </svg>
+);
+
+const Logo33 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M10 90L50 10l40 80" className="text-slate-500" />
+    <path d="M30 90L50 50l20 40" className="text-slate-400" />
+    <circle cx="50" cy="35" r="15" className="text-yellow-400/30" fill="currentColor" />
+    <path d="M40 65h20" className="text-white" strokeWidth="6" />
+    <path d="M50 10v25" className="text-yellow-400" />
+  </svg>
+);
+
+const Logo34 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M10 80l40-20 40 20M10 60l40-20 40 20M10 40l40-20 40 20" className="text-blue-500/30" />
+    <path d="M50 10v80M10 50h80" className="text-blue-500/20" />
+    <path d="M35 85L50 20l15 65" className="text-white" strokeWidth="6" />
+    <path d="M42 60h16" className="text-white" strokeWidth="4" />
+  </svg>
+);
+
+const Logo35 = () => (
+  <svg viewBox="0 0 100 100" className="w-16 h-16" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M30 60a10 10 0 1 0 0 20 10 10 0 1 0 0-20zM70 60a10 10 0 1 1 0 20 10 10 0 1 1 0-20z" className="text-purple-400/40" />
+    <path d="M30 70c20-20 20-20 40 0s20 20 40 0" className="text-purple-400" />
+    <path d="M35 85L50 20l15 65" className="text-white" strokeWidth="6" />
+    <path d="M42 60h16" className="text-white" strokeWidth="4" />
+  </svg>
+);
+
 const logos = [
   { component: Logo1, name: "The Tuning Fork", desc: "Merging acoustic resonance with the energetic aura field." },
   { component: Logo2, name: "Sonic Sun", desc: "Radiant energy represented by soundwaves forming a solar burst." },
@@ -202,17 +341,32 @@ const logos = [
   { component: Logo18, name: "The Tri-Resonance", desc: "Three distinct tuning forks forming an 'A', united by a central orbital ring." },
   { component: Logo19, name: "Sonic Orbit A", desc: "An 'A' where the legs are tuning forks and the crossbar is a fuchsia orbit." },
   { component: Logo20, name: "Auratune Masterpiece", desc: "The ultimate fusion: A bold 'A' with a tuning fork core, fuchsia equalizer base, and tri-color orbits." },
+  { component: Logo21, name: "Metatron's A", desc: "An 'A' shape built from the sacred geometric lines of Metatron's Cube." },
+  { component: Logo22, name: "Harmonic Wave", desc: "A single continuous wave that forms an 'A', representing fluid energy." },
+  { component: Logo23, name: "Crystal Frequency", desc: "An 'A' shaped like a crystal point with internal frequency resonance lines." },
+  { component: Logo24, name: "Aura Pulse", desc: "A central 'A' with expanding circular pulse waves of pure energy." },
+  { component: Logo25, name: "Sacred Helix", desc: "A double helix forming the legs of the 'A', representing biological resonance." },
+  { component: Logo26, name: "Geometric Soul", desc: "A diamond soul core nested within a triangular 'A' structure." },
+  { component: Logo27, name: "Frequency Shield", desc: "An 'A' protected by a hexagonal shield of vibrational frequency lines." },
+  { component: Logo28, name: "Luminous Portal", desc: "An 'A' acting as a glowing doorway into higher dimensional frequencies." },
+  { component: Logo29, name: "Vibrational Seed", desc: "The Seed of Life forming the crossbar of a powerful 'A' architecture." },
+  { component: Logo30, name: "Architect's Compass", desc: "A compass and square forming an 'A' with a central frequency wave." },
+  { component: Logo31, name: "Ethereal Flame", desc: "An 'A' made of stylized, flowing energy flames of spiritual transformation." },
+  { component: Logo32, name: "Quantum Orbit", desc: "Multiple overlapping orbits forming a complex, high-dimensional 'A' shape." },
+  { component: Logo33, name: "Zenith Peak", desc: "A mountain-like 'A' with a solar frequency burst at its highest peak." },
+  { component: Logo34, name: "Resonance Grid", desc: "An 'A' emerging from a 3D perspective grid of pure vibrational light." },
+  { component: Logo35, name: "Infinite Aura", desc: "An infinity symbol integrated into the 'A' structure, representing eternal energy." },
 ];
 
 export function LogoGallery() {
   return (
     <div className="p-6 md:p-12 max-w-6xl mx-auto relative z-10 pb-32">
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-blue-400 to-purple-400">
-          Auratune Logos
+        <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-blue-400 to-purple-400 uppercase">
+          Aura Architect Brand
         </h1>
         <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-          20 distinct visual identities exploring the intersection of energy, frequency, and spiritual alignment.
+          35 distinct visual identities exploring the intersection of energy, frequency, and spiritual alignment.
         </p>
       </div>
 

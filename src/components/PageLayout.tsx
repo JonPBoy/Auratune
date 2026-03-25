@@ -54,24 +54,39 @@ export function PageLayout({
 
       {tabs && tabs.length > 0 && (
         <div className="flex bg-cosmic-card p-1.5 rounded-2xl mb-10 border border-cosmic-border max-w-2xl">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => {
-                setActiveSubTab?.(tab.id);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className={cn(
-                "flex-1 flex items-center justify-center gap-2 py-3 text-sm md:text-base font-bold rounded-xl transition-all",
-                activeSubTab === tab.id 
-                  ? "bg-white/10 text-white shadow-lg" 
-                  : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
-              )}
-            >
-              {tab.icon && <tab.icon size={18} />}
-              {tab.label}
-            </button>
-          ))}
+          {tabs.map(tab => {
+            const isActive = activeSubTab === tab.id;
+            
+            // Derive theme colors from colorClass
+            const getThemeStyles = () => {
+              if (colorClass.includes('purple')) return { active: 'bg-purple-500/20 text-purple-400', hover: 'hover:bg-purple-500/10 hover:text-purple-300' };
+              if (colorClass.includes('blue')) return { active: 'bg-blue-500/20 text-blue-400', hover: 'hover:bg-blue-500/10 hover:text-blue-300' };
+              if (colorClass.includes('yellow')) return { active: 'bg-yellow-500/20 text-yellow-400', hover: 'hover:bg-yellow-500/10 hover:text-yellow-300' };
+              if (colorClass.includes('rose')) return { active: 'bg-rose-500/20 text-rose-400', hover: 'hover:bg-rose-500/10 hover:text-rose-300' };
+              if (colorClass.includes('emerald')) return { active: 'bg-emerald-500/20 text-emerald-400', hover: 'hover:bg-emerald-500/10 hover:text-emerald-300' };
+              if (colorClass.includes('pink')) return { active: 'bg-pink-500/20 text-pink-400', hover: 'hover:bg-pink-500/10 hover:text-pink-300' };
+              return { active: 'bg-white/10 text-white', hover: 'hover:bg-white/5 hover:text-slate-200' };
+            };
+
+            const theme = getThemeStyles();
+
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  setActiveSubTab?.(tab.id);
+                  document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className={cn(
+                  "flex-1 flex items-center justify-center gap-2 py-3 text-sm md:text-base font-bold rounded-xl transition-all",
+                  isActive ? cn(theme.active, "shadow-lg") : cn("text-slate-400", theme.hover)
+                )}
+              >
+                {tab.icon && <tab.icon size={18} />}
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
       )}
 

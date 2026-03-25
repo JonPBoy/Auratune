@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, ArrowRight, Zap, Waves, Infinity, RefreshCw } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { DailyOracle } from '../DailyOracle';
+import { cn } from '../../lib/utils';
 
 const COSMIC_PROMPTS = [
   "Your aura is a reflection of your inner peace. How can you nurture that peace today?",
@@ -16,6 +17,152 @@ const COSMIC_PROMPTS = [
   "The Akashic Records hold the wisdom of your past. Use it to build a brighter future.",
   "You are a sovereign being of light. Reclaim your power and stand in your truth."
 ];
+
+const INTENTION_IDEAS = [
+  "Remove all stress and tension",
+  "Draw closer to the Divine",
+  "Release all fears and anxieties",
+  "Embrace unconditional love and joy",
+  "Manifest abundance and prosperity",
+  "Heal my mind, body, and spirit",
+  "Cultivate deep inner peace",
+  "Awaken my highest potential",
+  "Radiate positive energy to others",
+  "Align with my soul's true purpose"
+];
+
+const CelebrationPop = () => {
+  return (
+    <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-20">
+      {[...Array(20)].map((_, i) => {
+        const angle = (i / 20) * Math.PI * 2;
+        const distance = 40 + Math.random() * 40;
+        return (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 rounded-full"
+            style={{
+              backgroundColor: ['#fde047', '#a855f7', '#3b82f6', '#ec4899'][Math.floor(Math.random() * 4)]
+            }}
+            initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+            animate={{ 
+              opacity: 0, 
+              scale: 0, 
+              x: Math.cos(angle) * distance, 
+              y: Math.sin(angle) * distance 
+            }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+const SmokeAndGoldDust = () => {
+  return (
+    <motion.div
+      className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-visible"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0 }}
+      exit={{ opacity: 1 }}
+    >
+      {/* Smoke */}
+      <motion.div 
+        className="absolute w-[150%] h-[200%] bg-gradient-to-t from-transparent via-slate-400/20 to-transparent blur-2xl rounded-[100%]"
+        initial={{ y: 20, scale: 0.8 }}
+        exit={{ y: -60, scale: 1.5, opacity: [0, 1, 0] }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+      />
+      {/* Gold Dust */}
+      {[...Array(25)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1.5 h-1.5 bg-yellow-300 rounded-full shadow-[0_0_8px_#fde047]"
+          style={{
+            left: `${10 + Math.random() * 80}%`,
+            top: `${10 + Math.random() * 80}%`,
+          }}
+          initial={{ opacity: 0, y: 0, scale: 0 }}
+          exit={{ 
+            opacity: [0, 1, 0], 
+            y: -40 - Math.random() * 60,
+            x: (Math.random() - 0.5) * 60,
+            scale: [0, 1.5, 0]
+          }}
+          transition={{ duration: 1 + Math.random() * 0.5, ease: "easeOut" }}
+        />
+      ))}
+    </motion.div>
+  );
+};
+
+function IntentionCarousel({ onSelect }: { onSelect: (idea: string) => void }) {
+  const [index, setIndex] = useState(0);
+  const [poppingIndex, setPoppingIndex] = useState<number | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (isHovered) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 2) % INTENTION_IDEAS.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isHovered]);
+
+  const handleSelect = (idea: string, idx: number) => {
+    setPoppingIndex(idx);
+    onSelect(idea);
+    setTimeout(() => setPoppingIndex(null), 1000);
+  };
+
+  const currentIdeas = [
+    INTENTION_IDEAS[index],
+    INTENTION_IDEAS[(index + 1) % INTENTION_IDEAS.length]
+  ];
+
+  return (
+    <div 
+      className="w-full relative h-36 mb-8 flex items-center justify-center"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <AnimatePresence>
+        <motion.div key={index} className="absolute flex flex-col items-center justify-center w-full max-w-md z-10 h-full">
+          <motion.div
+            initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -30, filter: 'blur(12px)' }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="flex flex-col gap-4 w-full items-center relative z-10"
+          >
+            {currentIdeas.map((idea, i) => {
+              const actualIdx = index + i;
+              const isPopping = poppingIndex === actualIdx;
+              return (
+                <div key={actualIdx} className="relative w-full flex justify-center">
+                  <motion.button
+                    onClick={() => handleSelect(idea, actualIdx)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={cn(
+                      "px-6 py-3 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-slate-300 hover:bg-purple-500/20 hover:text-purple-200 hover:border-purple-500/50 transition-colors cursor-pointer w-full max-w-[320px] truncate shadow-lg relative z-10",
+                      isPopping ? "ring-2 ring-yellow-400 bg-yellow-500/20 text-yellow-200 border-yellow-400" : ""
+                    )}
+                  >
+                    {idea}
+                  </motion.button>
+                  {isPopping && <CelebrationPop />}
+                </div>
+              );
+            })}
+          </motion.div>
+          <SmokeAndGoldDust />
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export function HomeTab({ onNavigate }: { onNavigate: (tab: string) => void }) {
   const [step, setStep] = useState(0);
@@ -68,9 +215,12 @@ export function HomeTab({ onNavigate }: { onNavigate: (tab: string) => void }) {
               <Sparkles size={32} className="text-purple-400" />
             </div>
             <h2 className="text-4xl font-bold mb-4 text-white">Set Your Intention</h2>
-            <p className="text-slate-400 mb-10 text-lg leading-relaxed">
+            <p className="text-slate-400 mb-6 text-lg leading-relaxed">
               Energy flows where intention goes. What frequency do you wish to anchor into your reality today?
             </p>
+
+            {/* Vertical Intention Carousel */}
+            <IntentionCarousel onSelect={setIntention} />
             
             <div className="w-full relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />

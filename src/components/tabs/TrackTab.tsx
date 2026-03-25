@@ -16,6 +16,28 @@ const mockData = [
   { day: 'Sun', aura: 85, freq: 80, soul: 85 },
 ];
 
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-[#0f172a] border border-[#1e293b] rounded-xl p-4 shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+        <p className="text-[#94a3b8] text-[10px] font-bold uppercase tracking-widest mb-3">{label}</p>
+        <div className="space-y-2">
+          {payload.map((entry: any, index: number) => (
+            <div key={index} className="flex items-center justify-between gap-6">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
+                <span className="text-white text-xs font-bold">{entry.name}</span>
+              </div>
+              <span className="text-white text-xs font-black">{entry.value}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
 export function TrackTab() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [practices, setPractices] = useState(() => {
@@ -33,6 +55,49 @@ export function TrackTab() {
       soul: false
     };
   });
+
+  const [weeklyMetrics, setWeeklyMetrics] = useState({
+    avgAura: 85,
+    avgFreq: 72,
+    avgSoul: 93,
+    completedPractices: 12
+  });
+
+  useEffect(() => {
+    const calculateMetrics = () => {
+      const now = new Date();
+      const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+      const auraLogs = JSON.parse(localStorage.getItem('aura_logs') || '[]');
+      const freqLogs = JSON.parse(localStorage.getItem('freq_logs') || '[]');
+      const soulEntries = JSON.parse(localStorage.getItem('soul_journal_entries') || '[]');
+
+      const recentAura = auraLogs.filter((log: any) => new Date(log.date) >= sevenDaysAgo);
+      const recentFreq = freqLogs.filter((log: any) => new Date(log.date) >= sevenDaysAgo);
+      const recentSoul = soulEntries.filter((entry: any) => new Date(entry.date) >= sevenDaysAgo);
+
+      if (recentAura.length > 0 || recentFreq.length > 0 || recentSoul.length > 0) {
+        const avgAura = recentAura.length > 0 
+          ? Math.round(recentAura.reduce((acc: number, log: any) => acc + (log.strength + log.clarity + log.protection) / 3, 0) / recentAura.length * 20)
+          : 0;
+        
+        const avgFreq = recentFreq.length > 0
+          ? Math.round(recentFreq.reduce((acc: number, log: any) => acc + (log.freqLevel || 3), 0) / recentFreq.length * 20)
+          : 0;
+
+        const avgSoul = Math.min(100, Math.round((recentSoul.length / 7) * 100));
+
+        setWeeklyMetrics({
+          avgAura: avgAura || 85,
+          avgFreq: avgFreq || 72,
+          avgSoul: avgSoul || 93,
+          completedPractices: recentAura.length + recentFreq.length + recentSoul.length
+        });
+      }
+    };
+
+    calculateMetrics();
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('cosmic_practices', JSON.stringify(practices));
@@ -85,21 +150,48 @@ export function TrackTab() {
             <div className="w-full grid grid-cols-3 gap-4 px-4 z-10">
               <div className="flex flex-col items-center bg-black/20 rounded-xl p-3 border border-white/5">
                 <span className="text-purple-400 text-[10px] font-bold uppercase tracking-wider mb-1">Aura</span>
-                <span className="text-lg font-black text-white">85<span className="text-[10px] text-slate-500">%</span></span>
+                <span className="text-lg font-black text-white">{weeklyMetrics.avgAura}<span className="text-[10px] text-slate-500">%</span></span>
               </div>
               <div className="flex flex-col items-center bg-black/20 rounded-xl p-3 border border-white/5">
                 <span className="text-blue-400 text-[10px] font-bold uppercase tracking-wider mb-1">Freq</span>
-                <span className="text-lg font-black text-white">72<span className="text-[10px] text-slate-500">%</span></span>
+                <span className="text-lg font-black text-white">{weeklyMetrics.avgFreq}<span className="text-[10px] text-slate-500">%</span></span>
               </div>
               <div className="flex flex-col items-center bg-black/20 rounded-xl p-3 border border-white/5">
                 <span className="text-yellow-400 text-[10px] font-bold uppercase tracking-wider mb-1">Soul</span>
-                <span className="text-lg font-black text-white">93<span className="text-[10px] text-slate-500">%</span></span>
+                <span className="text-lg font-black text-white">{weeklyMetrics.avgSoul}<span className="text-[10px] text-slate-500">%</span></span>
+              </div>
+            </div>
+          </Card>
+
+          {/* Weekly Summary */}
+          <Card className="p-5 lg:col-span-1 xl:col-span-1 border-emerald-500/20 bg-emerald-900/5">
+            <div className="flex items-center gap-2 mb-6">
+              <TrendingUp size={20} className="text-emerald-400" />
+              <h3 className="font-bold text-slate-200 text-lg">Weekly Summary</h3>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-400">Avg Aura Resonance</span>
+                <span className="text-sm font-black text-purple-400">{weeklyMetrics.avgAura}%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-400">Avg Frequency</span>
+                <span className="text-sm font-black text-blue-400">{weeklyMetrics.avgFreq}%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-400">Avg Soul Alignment</span>
+                <span className="text-sm font-black text-yellow-400">{weeklyMetrics.avgSoul}%</span>
+              </div>
+              <div className="pt-4 border-t border-white/5 flex justify-between items-center">
+                <span className="text-xs text-slate-400">Practices Completed</span>
+                <span className="text-sm font-black text-emerald-400">{weeklyMetrics.completedPractices}</span>
               </div>
             </div>
           </Card>
           
           {/* Weekly Matrix */}
-          <Card className="p-5 lg:col-span-1">
+          <Card className="p-5 lg:col-span-1 xl:col-span-1">
             <div className="flex justify-between items-center mb-6">
               <h3 className="font-bold text-slate-200 text-lg">Weekly Matrix</h3>
               <div className="flex items-center gap-2">
@@ -135,7 +227,7 @@ export function TrackTab() {
           </Card>
           
           {/* Daily Protocols */}
-          <Card className="p-5 lg:col-span-1 xl:col-span-2">
+          <Card className="p-5 lg:col-span-2 xl:col-span-1">
             <div className="flex justify-between items-center mb-6">
               <h3 className="font-bold text-slate-200 text-lg">Daily Protocols</h3>
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
@@ -232,11 +324,7 @@ export function TrackTab() {
                   <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
                   <XAxis dataKey="day" stroke="#475569" fontSize={10} tickLine={false} axisLine={false} dy={10} />
                   <YAxis stroke="#475569" fontSize={10} tickLine={false} axisLine={false} dx={-10} />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.8)' }}
-                    itemStyle={{ fontSize: '12px', fontWeight: 'bold' }}
-                    labelStyle={{ color: '#94a3b8', marginBottom: '6px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}
-                  />
+                  <Tooltip content={<CustomTooltip />} />
                   <Area type="monotone" dataKey="aura" name="Aura" stroke="#8b5cf6" strokeWidth={3} fillOpacity={1} fill="url(#colorAura)" />
                   <Area type="monotone" dataKey="freq" name="Frequency" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorFreq)" />
                   <Area type="monotone" dataKey="soul" name="Soul" stroke="#eab308" strokeWidth={3} fillOpacity={1} fill="url(#colorSoul)" />

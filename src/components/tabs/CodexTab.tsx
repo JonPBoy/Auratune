@@ -154,7 +154,7 @@ export function CodexTab() {
             <h3 className="text-4xl font-black mb-4 flex items-center gap-4 text-white tracking-wide uppercase">
               The Hermetic Principles
             </h3>
-            <p className="text-slate-400 text-lg mb-10 leading-relaxed relative z-10">The seven universal laws that govern Auratune. Master these ancient truths, and you master the fabric of reality itself. These principles are the keys to the universe, revealing the hidden mechanics of creation.</p>
+            <p className="text-slate-400 text-xl mb-10 leading-relaxed relative z-10">The seven universal laws that govern Auratune. Master these ancient truths, and you master the fabric of reality itself. These principles are the keys to the universe, revealing the hidden mechanics of creation.</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 relative z-10">
               {[
@@ -204,9 +204,9 @@ export function CodexTab() {
                 <div key={i} className="p-6 rounded-xl bg-black/40 border border-white/5 flex flex-col gap-4 items-start hover:bg-black/60 transition-all">
                   <div className="text-4xl opacity-90">{law.icon}</div>
                   <div>
-                    <h4 className="font-bold text-slate-200 text-xl mb-2 tracking-widest uppercase">{law.title}</h4>
-                    <p className="text-base text-slate-400 leading-relaxed italic mb-2">"{law.desc.split('"')[1]}"</p>
-                    <p className="text-sm text-slate-500 leading-relaxed">{law.elaborate}</p>
+                    <h4 className="font-bold text-slate-200 text-2xl mb-2 tracking-widest uppercase">{law.title}</h4>
+                    <p className="text-lg text-slate-400 leading-relaxed italic mb-2">"{law.desc.split('"')[1]}"</p>
+                    <p className="text-base text-slate-500 leading-relaxed">{law.elaborate}</p>
                   </div>
                 </div>
               ))}
