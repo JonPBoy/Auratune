@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cosmic-bg: #05070a;
+  --color-cosmic-card: #0d111d;
+  --color-cosmic-card-hover: #151a2e;
+  --color-cosmic-border: #1e253d;
+  --color-aura: #a855f7;
+  --color-freq: #3b82f6;
+  --color-soul: #eab308;
+  --color-periwinkle: #8a9cf1;
+  --color-cosmic-pink: #ec4899;
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+body {
+  background-color: var(--color-cosmic-bg);
+  color: #f8fafc;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 1s ease, color 1s ease;
+}
+
+body.light-energy {
+  --color-cosmic-bg: #f8fafc;
+  --color-cosmic-card: #ffffff;
+  --color-cosmic-card-hover: #f1f5f9;
+  --color-cosmic-border: #e2e8f0;
+  color: #0f172a;
+}
+
+body.light-energy .cosmic-bg {
+  background: radial-gradient(circle at var(--mouse-x, 20%) var(--mouse-y, 30%), rgba(168, 85, 247, 0.1) 0%, transparent 60%),
+              radial-gradient(circle at calc(100% - var(--mouse-x, 80%)) calc(100% - var(--mouse-y, 70%)), rgba(59, 130, 246, 0.1) 0%, transparent 60%),
+              radial-gradient(circle at 50% 50%, rgba(234, 179, 8, 0.05) 0%, transparent 80%);
+}
+
+body.light-energy .stars-layer-1,
+body.light-energy .stars-layer-2,
+body.light-energy .stars-layer-3 {
+  filter: invert(1) opacity(0.3);
+}
+
+body.light-energy .nebula {
+  background: radial-gradient(circle at 50% 50%, transparent 0%, var(--color-cosmic-bg) 85%);
+  mix-blend-mode: multiply;
+  opacity: 0.3;
+}
+
+body.light-energy .text-white {
+  color: #0f172a;
+}
+
+body.light-energy .text-slate-400 {
+  color: #64748b;
+}
+
+body.light-energy .text-slate-300 {
+  color: #475569;
+}
+
+body.light-energy .text-slate-200 {
+  color: #334155;
+}
+
+body.light-energy .bg-black\/40,
+body.light-energy .bg-black\/80,
+body.light-energy .bg-black\/90 {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+body.light-energy .border-white\/10,
+body.light-energy .border-white\/5 {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-energy .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+body.light-energy .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-energy .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-energy .hover\:bg-white\/5:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.cosmic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at var(--mouse-x, 20%) var(--mouse-y, 30%), var(--nebula-color-1, rgba(138, 156, 241, 0.15)) 0%, transparent 60%),
+              radial-gradient(circle at calc(100% - var(--mouse-x, 80%)) calc(100% - var(--mouse-y, 70%)), var(--nebula-color-2, rgba(236, 72, 153, 0.15)) 0%, transparent 60%),
+              radial-gradient(circle at 50% 50%, var(--nebula-color-3, rgba(59, 130, 246, 0.05)) 0%, transparent 80%);
+  overflow: hidden;
+  transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nebula {
+  position: absolute;
+  width: 250%;
+  height: 250%;
+  top: -75%;
+  left: -75%;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, var(--color-cosmic-bg) 85%);
+  filter: blur(100px);
+  opacity: 0.6;
+  animation: nebula-drift 40s ease-in-out infinite alternate;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+@keyframes nebula-drift {
+  0% { transform: scale(1) translate(-2%, -2%) rotate(0deg); }
+  50% { transform: scale(1.1) translate(2%, 2%) rotate(5deg); }
+  100% { transform: scale(1) translate(-2%, -2%) rotate(0deg); }
+}
+
+.stars-layer-1, .stars-layer-2, .stars-layer-3 {
+  position: absolute;
+  inset: -100px;
+  pointer-events: none;
+}
+
+.stars-layer-1 {
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  opacity: 0.2;
+  animation: stars-parallax-1 120s linear infinite;
+}
+
+.stars-layer-2 {
+  background-image: 
+    radial-gradient(1px 1px at 100px 100px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 200px 250px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 300px 50px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 400px 400px;
+  opacity: 0.15;
+  animation: stars-parallax-2 180s linear infinite;
+}
+
+.stars-layer-3 {
+  background-image: 
+    radial-gradient(2px 2px at 50px 50px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 150px 300px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 500px 500px;
+  opacity: 0.1;
+  animation: stars-parallax-3 240s linear infinite;
+}
+
+@keyframes stars-parallax-1 {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-100px, -100px); }
+}
+
+@keyframes stars-parallax-2 {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-200px, 100px); }
+}
+
+@keyframes stars-parallax-3 {
+  from { transform: translate(0, 0); }
+  to { transform: translate(100px, -200px); }
+}
+
+.cosmic-dust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.05) 0%, transparent 20%);
+  transition: background 0.1s ease-out;
+}
+
+.tab-warp {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, white 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.tab-warp.active {
+  animation: warp-flash 0.8s ease-out forwards;
+}
+
+@keyframes warp-flash {
+  0% { opacity: 0; transform: scale(0.5); }
+  20% { opacity: 0.3; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(2); }
+}
+
+.shooting-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+  opacity: 0;
+  animation: shooting 5s linear infinite;
+}
+
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 100%);
+}
+
+@keyframes shooting {
+  0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+  10% { opacity: 1; }
+  20% { transform: translateX(500px) translateY(500px) rotate(-45deg); opacity: 0; }
+  100% { transform: translateX(500px) translateY(500px) rotate(-45deg); opacity: 0; }
+}
+
+/* Hide scrollbar for clean UI */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

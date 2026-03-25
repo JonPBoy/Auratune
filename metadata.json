@@ -1,0 +1,5 @@
+{
+  "name": "Auratune",
+  "description": "A spiritual and energetic alignment app featuring aura scanning, frequency tuning, and cosmic guidance.",
+  "requestFramePermissions": ["camera"]
+}
