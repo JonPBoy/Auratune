@@ -128,8 +128,21 @@ export default function App() {
       </div>
 
       <main ref={mainRef} className="relative z-10 h-screen overflow-y-auto pb-24 custom-scrollbar">
-        {/* Theme Toggle */}
-        <div className="absolute top-4 right-4 z-50">
+        {/* Header Area */}
+        <div className="absolute top-4 right-4 z-50 flex items-center gap-4">
+          {activeTab !== 'home' && (
+            <button 
+              onClick={() => handleTabChange('home')}
+              className="h-10 hover:scale-105 transition-transform duration-300"
+              title="Return Home"
+            >
+              <img 
+                src="/logo.png" 
+                alt="Auratune Logo" 
+                className="h-full w-auto object-contain drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]" 
+              />
+            </button>
+          )}
           <button
             onClick={() => setIsLightMode(!isLightMode)}
             className="p-3 rounded-full bg-black/40 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-all backdrop-blur-sm shadow-xl"

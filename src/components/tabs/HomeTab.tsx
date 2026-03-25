@@ -240,7 +240,7 @@ export function HomeTab({ onNavigate }: { onNavigate: (tab: string) => void }) {
             
             <motion.div variants={itemVariants}>
               <span className="text-[10px] font-black tracking-[0.5em] uppercase text-purple-500/60 mb-4 block">Initiation Sequence</span>
-              <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 leading-tight">
+              <h1 className="text-[25px] md:text-[34px] font-black tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 leading-tight">
                 Welcome, Seeker
               </h1>
             </motion.div>

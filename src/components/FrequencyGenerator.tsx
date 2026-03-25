@@ -56,11 +56,23 @@ while (ALL_FREQUENCIES.length < 210) {
 }
 ALL_FREQUENCIES.sort((a, b) => a.value - b.value);
 
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
 export function FrequencyGenerator({ compact = false }: { compact?: boolean }) {
   const [frequency, setFrequency] = useState(528);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const [activeCategory, setActiveCategory] = useState<'solfeggio' | 'beneficial'>('solfeggio');
 
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -122,12 +134,13 @@ export function FrequencyGenerator({ compact = false }: { compact?: boolean }) {
   const activeFreq = ALL_FREQUENCIES.find(f => f.value === frequency) || { color: 'text-white', bg: 'bg-white/20', name: 'Custom Frequency' };
 
   const filteredFrequencies = useMemo(() => {
-    if (!searchQuery) return ALL_FREQUENCIES;
+    if (!debouncedSearchQuery) return ALL_FREQUENCIES;
+    const lowerQuery = debouncedSearchQuery.toLowerCase();
     return ALL_FREQUENCIES.filter(f => 
-      f.value.toString().includes(searchQuery) || 
-      f.name.toLowerCase().includes(searchQuery.toLowerCase())
+      f.value.toString().includes(lowerQuery) || 
+      f.name.toLowerCase().includes(lowerQuery)
     );
-  }, [searchQuery]);
+  }, [debouncedSearchQuery]);
 
   if (showAll) {
     return (

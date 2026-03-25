@@ -207,13 +207,13 @@ export function BioTab() {
                       <YAxis stroke="#475569" fontSize={10} tickLine={false} axisLine={false} dx={-10} domain={[-100, 100]} />
                       <ReferenceLine y={0} stroke="#ffffff20" />
                       <Tooltip 
-                        contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '12px' }}
-                        itemStyle={{ fontSize: '12px', fontWeight: 'bold' }}
-                        labelStyle={{ color: '#94a3b8', marginBottom: '6px', fontSize: '10px', textTransform: 'uppercase' }}
+                        contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px', padding: '12px 16px', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3)' }}
+                        itemStyle={{ fontSize: '14px', fontWeight: 'bold', padding: '4px 0' }}
+                        labelStyle={{ color: '#cbd5e1', marginBottom: '8px', fontSize: '12px', textTransform: 'uppercase', fontWeight: 'bold', borderBottom: '1px solid #334155', paddingBottom: '4px' }}
                       />
-                      <Area type="monotone" dataKey="physical" name="Physical" stroke="#ef4444" strokeWidth={3} fillOpacity={1} fill="url(#colorPhys)" />
-                      <Area type="monotone" dataKey="emotional" name="Emotional" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorEmo)" />
-                      <Area type="monotone" dataKey="intellectual" name="Intellectual" stroke="#eab308" strokeWidth={3} fillOpacity={1} fill="url(#colorInt)" />
+                      <Area type="monotone" dataKey="physical" name="Physical" stroke="#ef4444" strokeWidth={5} fillOpacity={1} fill="url(#colorPhys)" />
+                      <Area type="monotone" dataKey="emotional" name="Emotional" stroke="#3b82f6" strokeWidth={5} fillOpacity={1} fill="url(#colorEmo)" />
+                      <Area type="monotone" dataKey="intellectual" name="Intellectual" stroke="#eab308" strokeWidth={5} fillOpacity={1} fill="url(#colorInt)" />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
