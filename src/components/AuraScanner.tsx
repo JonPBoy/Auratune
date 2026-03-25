@@ -7,6 +7,7 @@ export function AuraScanner() {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [scanResult, setScanResult] = useState<{ name: string, color: string, meaning: string } | null>(null);
+  const [detectedColor, setDetectedColor] = useState<{ r: number, g: number, b: number } | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
@@ -41,10 +42,48 @@ export function AuraScanner() {
   };
 
   useEffect(() => {
+    startCamera();
     return () => {
       stopCamera();
     };
   }, []);
+
+  // Live frequency update
+  useEffect(() => {
+    if (!hasPermission || isScanning) return;
+
+    const interval = setInterval(() => {
+      if (videoRef.current) {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 100;
+          canvas.height = 100;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(videoRef.current, 25, 25, 50, 50, 0, 0, 100, 100);
+            const imageData = ctx.getImageData(0, 0, 100, 100);
+            const data = imageData.data;
+            let r = 0, g = 0, b = 0;
+            for (let i = 0; i < data.length; i += 4) {
+              r += data[i];
+              g += data[i+1];
+              b += data[i+2];
+            }
+            const count = data.length / 4;
+            setDetectedColor({ 
+              r: Math.floor(r / count), 
+              g: Math.floor(g / count), 
+              b: Math.floor(b / count) 
+            });
+          }
+        } catch (e) {
+          // Silent fail for live preview
+        }
+      }
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [hasPermission, isScanning]);
 
   const scanAura = () => {
     setIsScanning(true);
@@ -62,11 +101,18 @@ export function AuraScanner() {
           
           if (ctx && canvas.width > 0 && canvas.height > 0) {
             ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            
+            // Focus on the center 50% of the frame where the person usually is
+            const centerX = Math.floor(canvas.width * 0.25);
+            const centerY = Math.floor(canvas.height * 0.25);
+            const scanWidth = Math.floor(canvas.width * 0.5);
+            const scanHeight = Math.floor(canvas.height * 0.5);
+            
+            const imageData = ctx.getImageData(centerX, centerY, scanWidth, scanHeight);
             const data = imageData.data;
             
             let count = 0;
-            // Sample pixels to get average color, skipping some for performance
+            // Sample pixels to get average color
             for (let i = 0; i < data.length; i += 16) {
               r += data[i];
               g += data[i+1];
@@ -79,6 +125,8 @@ export function AuraScanner() {
               g = Math.floor(g / count);
               b = Math.floor(b / count);
             }
+            
+            setDetectedColor({ r, g, b });
           }
         } catch (e) {
           console.error("Error processing video frame", e);
@@ -137,13 +185,22 @@ export function AuraScanner() {
   };
 
   return (
-    <Card className="flex flex-col items-center justify-center p-6 md:p-8 border-purple-500/30 bg-gradient-to-br from-purple-900/20 to-black relative overflow-hidden w-full max-w-2xl mx-auto">
-      <div className="absolute top-4 left-4 flex items-center gap-2 text-purple-400">
-        <Sparkles size={20} />
-        <span className="font-bold text-sm tracking-widest uppercase">Aura Scanner</span>
-      </div>
+    <div className="col-span-full flex justify-center py-4">
+      <Card className="flex flex-col items-center justify-center p-6 md:p-8 border-purple-500/30 bg-gradient-to-br from-purple-900/20 to-black relative overflow-hidden w-full max-w-2xl shadow-[0_0_50px_rgba(168,85,247,0.15)]">
+        <div className="absolute top-4 left-4 flex items-center gap-2 text-purple-400">
+          <Sparkles size={20} />
+          <span className="font-bold text-sm tracking-widest uppercase">Aura Scanner</span>
+        </div>
 
-      <h2 className="text-2xl font-black text-white mt-8 mb-2 text-center">Discover Your Energy</h2>
+        <div className="absolute top-4 right-4 flex items-center gap-2">
+          <div className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Live Energy:</div>
+          <div 
+            className="w-3 h-3 rounded-full border border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.2)]" 
+            style={{ backgroundColor: detectedColor ? `rgb(${detectedColor.r}, ${detectedColor.g}, ${detectedColor.b})` : 'transparent' }}
+          />
+        </div>
+
+        <h2 className="text-2xl font-black text-white mt-8 mb-2 text-center">Discover Your Energy</h2>
       <p className="text-slate-400 text-center mb-8 max-w-md">
         Allow camera access to read your current bio-energetic field and reveal your dominant aura color.
       </p>
@@ -183,6 +240,9 @@ export function AuraScanner() {
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-fuchsia-500/20 mix-blend-overlay animate-pulse" />
                 
+                {/* Focus Box */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 border-2 border-white/30 rounded-3xl border-dashed animate-pulse" />
+                
                 {/* Scanning line */}
                 <div 
                   className="absolute left-0 right-0 h-48 bg-gradient-to-b from-transparent via-fuchsia-500/30 to-transparent w-full"
@@ -215,6 +275,13 @@ export function AuraScanner() {
 
       {scanResult && !isScanning && (
         <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-700 flex flex-col items-center">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Raw Frequency:</div>
+            <div 
+              className="w-4 h-4 rounded-full border border-white/20" 
+              style={{ backgroundColor: `rgb(${detectedColor?.r}, ${detectedColor?.g}, ${detectedColor?.b})` }}
+            />
+          </div>
           <h3 className="text-xl font-black text-white mb-2 uppercase tracking-widest">Your Aura is {scanResult.name}</h3>
           <div className={cn("w-24 h-2 rounded-full mb-4 bg-gradient-to-r", scanResult.color)} />
           <p className="text-purple-200 font-medium max-w-md">{scanResult.meaning}</p>
@@ -231,5 +298,6 @@ export function AuraScanner() {
         </button>
       )}
     </Card>
+    </div>
   );
 }

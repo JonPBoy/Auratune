@@ -75,7 +75,7 @@ export function BioTab() {
   };
 
   const tabs = [
-    { id: 'chart', label: 'Biorhythms', icon: Waves },
+    { id: 'chart', label: 'BioRhythm', icon: Waves },
     { id: 'feedback', label: 'Biofeedback', icon: Activity },
     { id: 'settings', label: 'Profile', icon: Calendar },
   ];
@@ -128,7 +128,7 @@ export function BioTab() {
 
   return (
     <PageLayout
-      title="Biorhythms"
+      title="BioRhythm"
       subtitle="Your personal energy cycles"
       icon={Waves}
       colorClass="text-rose-500"
@@ -353,11 +353,11 @@ export function BioTab() {
               <Card>
                 <h3 className="text-lg font-bold mb-4 text-white flex items-center gap-2">
                   <Waves size={18} className="text-rose-400" />
-                  Understanding Biorhythms
+                  Understanding BioRhythm
                 </h3>
                 <div className="space-y-4 text-sm text-slate-400 leading-relaxed">
                   <p>
-                    Biorhythms are an attempt to predict various aspects of a person's life through simple mathematical cycles. The theory states that our lives are affected by rhythmic biological cycles that affect our ability in various domains.
+                    BioRhythm is an attempt to predict various aspects of a person's life through simple mathematical cycles. The theory states that our lives are affected by rhythmic biological cycles that affect our ability in various domains.
                   </p>
                   <ul className="list-disc pl-5 space-y-2">
                     <li><strong className="text-red-400">Physical (23 days):</strong> Coordination, strength, well-being.</li>

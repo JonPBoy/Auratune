@@ -56,12 +56,12 @@ export function AuraTab() {
     if (!isSelected) return "bg-white/5 border-white/10 text-slate-400 hover:bg-white/10";
     
     switch (num) {
-      case 1: return "bg-red-500 border-red-400 text-white shadow-[0_0_15px_rgba(239,68,68,0.4)]";
-      case 2: return "bg-orange-500 border-orange-400 text-white shadow-[0_0_15px_rgba(249,115,22,0.4)]";
-      case 3: return "bg-yellow-500 border-yellow-400 text-white shadow-[0_0_15px_rgba(234,179,8,0.4)]";
-      case 4: return "bg-emerald-500 border-emerald-400 text-white shadow-[0_0_15px_rgba(16,185,129,0.4)]";
-      case 5: return "bg-purple-500 border-purple-400 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)]";
-      default: return "bg-purple-500 border-purple-400 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)]";
+      case 1: return "bg-red-500 border-red-400 text-white shadow-[0_0_20px_rgba(239,68,68,0.6)] scale-110 z-10 border-2";
+      case 2: return "bg-orange-500 border-orange-400 text-white shadow-[0_0_20px_rgba(249,115,22,0.6)] scale-110 z-10 border-2";
+      case 3: return "bg-yellow-500 border-yellow-400 text-white shadow-[0_0_20px_rgba(234,179,8,0.6)] scale-110 z-10 border-2";
+      case 4: return "bg-emerald-500 border-emerald-400 text-white shadow-[0_0_20px_rgba(16,185,129,0.6)] scale-110 z-10 border-2";
+      case 5: return "bg-purple-500 border-purple-400 text-white shadow-[0_0_20px_rgba(168,85,247,0.6)] scale-110 z-10 border-2";
+      default: return "bg-purple-500 border-purple-400 text-white shadow-[0_0_20px_rgba(168,85,247,0.6)] scale-110 z-10 border-2";
     }
   };
 
@@ -423,8 +423,10 @@ export function AuraTab() {
               )}
               <div className="grid grid-cols-5 gap-2">
                 {[1, 2, 3, 4, 5].map((num) => (
-                  <button
+                  <motion.button
                     key={num}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setStrength(num)}
                     className={cn(
                       "py-3 rounded-lg border transition-all font-bold",
@@ -432,7 +434,7 @@ export function AuraTab() {
                     )}
                   >
                     {num}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
               <div className="flex justify-between text-[10px] uppercase tracking-widest text-slate-500 font-bold px-1">
@@ -456,8 +458,10 @@ export function AuraTab() {
               )}
               <div className="grid grid-cols-5 gap-2">
                 {[1, 2, 3, 4, 5].map((num) => (
-                  <button
+                  <motion.button
                     key={num}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setClarity(num)}
                     className={cn(
                       "py-3 rounded-lg border transition-all font-bold",
@@ -465,7 +469,7 @@ export function AuraTab() {
                     )}
                   >
                     {num}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
               <div className="flex justify-between text-[10px] uppercase tracking-widest text-slate-500 font-bold px-1">
@@ -489,8 +493,10 @@ export function AuraTab() {
               )}
               <div className="grid grid-cols-5 gap-2">
                 {[1, 2, 3, 4, 5].map((num) => (
-                  <button
+                  <motion.button
                     key={num}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setProtection(num)}
                     className={cn(
                       "py-3 rounded-lg border transition-all font-bold",
@@ -498,7 +504,7 @@ export function AuraTab() {
                     )}
                   >
                     {num}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
               <div className="flex justify-between text-[10px] uppercase tracking-widest text-slate-500 font-bold px-1">
